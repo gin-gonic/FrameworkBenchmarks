@@ -9,12 +9,12 @@ class T_CONTROLLER_EXPORT FortuneController : public ApplicationController
     Q_OBJECT
 public:
     FortuneController() { }
-    FortuneController(const FortuneController &other);
     bool sessionEnabled() const { return false; }
     bool transactionEnabled() const { return false; }
 
 public slots:
-    void index();
+    void index();   // SQL
+    void mindex();  // MongoDB
     void show(const QString &pk);
     void entry();
     void create();
@@ -26,7 +26,5 @@ private:
     void renderEntry(const QVariantMap &fortune = QVariantMap());
     void renderEdit(const QVariantMap &fortune = QVariantMap());
 };
-
-T_DECLARE_CONTROLLER(FortuneController, fortunecontroller)
 
 #endif // FORTUNECONTROLLER_H

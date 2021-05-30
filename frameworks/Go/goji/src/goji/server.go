@@ -6,6 +6,7 @@ import (
 	"flag"
 	"fmt"
 	"html/template"
+	"io/ioutil"
 	"log"
 	"math/rand"
 	"net/http"
@@ -21,7 +22,7 @@ import (
 
 const (
 	// Database
-	connectionString   = "benchmarkdbuser:benchmarkdbpass@tcp(localhost:3306)/hello_world"
+	connectionString   = "benchmarkdbuser:benchmarkdbpass@tcp(tfb-database:3306)/hello_world"
 	worldSelect        = "SELECT id, randomNumber FROM World WHERE id = ?"
 	worldUpdate        = "UPDATE World SET randomNumber = ? WHERE id = ?"
 	fortuneSelect      = "SELECT id, message FROM Fortune;"
@@ -157,7 +158,7 @@ func fortunes(c web.C, w http.ResponseWriter, r *http.Request) {
 	fortunes = append(fortunes, &Fortune{Message: extraFortuneMessage})
 
 	sort.Sort(ByMessage{fortunes})
-	setContentType(w, "text/html")
+	setContentType(w, "text/html;charset=utf-8")
 	if err := tmpl.Execute(w, fortunes); err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
@@ -190,7 +191,7 @@ func plaintext(c web.C, w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	runtime.GOMAXPROCS(runtime.NumCPU())
-
+	log.SetOutput(ioutil.Discard) // add line 3
 	db, err := sql.Open("mysql", connectionString)
 	if err != nil {
 		log.Fatalf("Error opening database: %v", err)

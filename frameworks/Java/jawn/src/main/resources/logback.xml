@@ -6,9 +6,8 @@
         </encoder>
     </appender>
 
-    
     <!-- Disables all logging -->
-    <root level="OFF">
+    <root level="off">
         <appender-ref ref="STDOUT" />
     </root>
     

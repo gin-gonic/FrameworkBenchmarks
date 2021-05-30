@@ -1,50 +1,48 @@
 package controllers
 
-import play.api.Play.current
-import play.api.db.DB
+import javax.inject.{Inject, Singleton}
+
 import play.api.mvc._
+import play.mvc.Http
 import play.api.libs.json.Json
 import java.util.concurrent._
-import scala.concurrent._
-import models.{World, Fortune}
-import utils._
-import utils.DbOperation._
-import scala.concurrent.Future
+import models.{WorldDAO, FortunesDAO, World, Fortune}
+import utils.DbOperation
+import scala.concurrent.{Future, ExecutionContext}
 
-import play.api.libs.concurrent.Execution.Implicits._
-import play.core.NamedThreadFactory
+@Singleton()
+class Application @Inject() (fortunesDAO: FortunesDAO, worldDAO: WorldDAO, dbOperation: DbOperation, val controllerComponents: ControllerComponents)(implicit ec: ExecutionContext)
+  extends BaseController {
 
-object Application extends Controller {
-
-  // Anorm code
-
-  def getRandomWorlds(n: Int): Future[Seq[World]] = asyncDbOp { implicit connection =>
-    val random = ThreadLocalRandom.current()
+  def getRandomWorlds(n: Int): Future[Seq[World]] = dbOperation.asyncDbOp { implicit connection =>
     for (_ <- 1 to n) yield {
-      val randomId: Long = random.nextInt(TestDatabaseRows) + 1
-      World.findById(randomId)
+      worldDAO.findById(getNextRandom)
     }
   }
 
-  def getFortunes(): Future[Seq[Fortune]] = asyncDbOp { implicit connection =>
-    Fortune.getAll()
+  def getFortunes: Future[Seq[Fortune]] = dbOperation.asyncDbOp { implicit connection =>
+    fortunesDAO.getAll
   }
 
-  def updateWorlds(n: Int): Future[Seq[World]] = asyncDbOp { implicit connection =>
-    val random = ThreadLocalRandom.current()
+  def updateWorlds(n: Int): Future[Seq[World]] = dbOperation.asyncDbOp { implicit connection =>
     for(_ <- 1 to n) yield {
-      val randomId: Long = random.nextInt(TestDatabaseRows) + 1
-      val world = World.findById(random.nextInt(TestDatabaseRows) + 1)
-      val randomNumber: Long = random.nextInt(10000) + 1
-      val updatedWorld = world.copy(randomNumber = randomNumber)
-      World.updateRandom(updatedWorld)
+      val world = worldDAO.findById(getNextRandom)
+      val updatedWorld = world.copy(randomNumber = getNextRandom)
+      worldDAO.updateRandom(updatedWorld)
       updatedWorld
     }
   }
 
+  def getNextRandom: Int = {
+    ThreadLocalRandom.current().nextInt(TestDatabaseRows) + 1
+  }
+
+
   // Common code between Scala database code
 
   protected val TestDatabaseRows = 10000
+
+  import models.WorldJsonHelpers.toJson
 
   def db = Action.async {
     getRandomWorlds(1).map { worlds =>
@@ -60,8 +58,8 @@ object Application extends Controller {
   }
 
   def fortunes() = Action.async {
-    getFortunes().map { dbFortunes =>
-      val appendedFortunes =  Fortune(0, "Additional fortune added at request time.") :: (dbFortunes.to[List])
+    getFortunes.map { dbFortunes =>
+      val appendedFortunes = List(Fortune(0, "Additional fortune added at request time.")) ++ dbFortunes
       Ok(views.html.fortune(appendedFortunes))
     }
   }

@@ -2,7 +2,6 @@
   "framework": "snap",
   "tests": [{
     "default": {
-      "setup_file": "setup",
       "json_url": "/json",
       "db_url": "/db",
       "query_url": "/dbs?queries=",
@@ -11,16 +10,18 @@
       "approach": "Realistic",
       "classification": "Micro",
       "database": "MySQL",
-      "framework": "snap",
+      "framework": "Snap",
       "language": "Haskell",
+      "flavor": "GHC78",
       "orm": "Full",
-      "platform": "Snap",
+      "platform": "None",
       "webserver": "None",
       "os": "Linux",
       "database_os": "Linux",
-      "display_name": "snap",
+      "display_name": "Snap",
       "notes": "",
-      "versus": ""
+      "versus": "",
+      "tags": ["broken"]
     }
   }]
 }

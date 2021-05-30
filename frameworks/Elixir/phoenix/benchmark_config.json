@@ -2,23 +2,27 @@
     "framework": "phoenix",
     "tests": [{
         "default": {
-            "setup_file": "setup",
             "json_url": "/json",
+            "db_url": "/db",
+            "query_url": "/queries?queries=",
+            "fortune_url": "/fortunes",
             "plaintext_url": "/plaintext",
+            "update_url": "/updates?queries=",
             "port": 8080,
             "approach": "Realistic",
-            "classification": "Framework",
+            "classification": "Fullstack",
             "database": "Postgres",
             "framework": "Phoenix",
-            "language": "elixir",
-            "orm": "etco",
-            "platform": "Erlang/OTP",
-            "webserver": "cowboy",
+            "language": "Elixir",
+            "flavor": "None",
+            "orm": "full",
+            "platform": "Cowboy",
+            "webserver": "None",
             "os": "Linux",
             "database_os": "Linux",
-            "display_name": "phoenix",
+            "display_name": "Phoenix",
             "notes": "",
-            "versus": ""
+            "versus": "Cowboy"
         }
     }]
 }

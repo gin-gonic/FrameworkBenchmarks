@@ -1,26 +1,35 @@
 package com.example.helloworld.db.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 
 @Entity
-@Table(name = "Fortune")
+@Table(name = "fortune")
 public class Fortune implements Comparable<Fortune> {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    @JsonProperty
+    private int id;
 
+    @JsonProperty
     @Column(name = "message", nullable = false)
     private String message;
 
-    @SuppressWarnings("unused")
     public Fortune() {}
-
+    
     public Fortune(String message) {
-        this.message = message;
-    }
+		super();
+		this.message = message;
+	}
+    
+    public Fortune(int id, String message) {
+		super();
+		this.id = id;
+		this.message = message;
+	}
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 

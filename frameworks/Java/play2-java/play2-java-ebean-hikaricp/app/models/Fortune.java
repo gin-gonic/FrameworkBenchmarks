@@ -1,12 +1,17 @@
 package models;
 
-import play.db.ebean.Model;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+import io.ebean.Finder;
+import io.ebean.Model;
+
 @Entity
 public class Fortune extends Model {
+
+    private static final Finder<Long, Fortune> find = new Finder<>(Fortune.class);
 
     @Id
     public Long id = 0L;
@@ -16,11 +21,11 @@ public class Fortune extends Model {
     public Fortune() {
     }
 
-    public Fortune(String message) {
+    public Fortune(final String message) {
         this.message = message;
     }
 
-    public static Finder<Long, Fortune> find = new Finder<Long, Fortune>(
-            Long.class, Fortune.class
-    );
+    public static List<Fortune> findAll() {
+        return find.all();
+    }
 }

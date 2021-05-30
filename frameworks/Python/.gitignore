@@ -1,6 +1,0 @@
-uwsgi_params
-*.pid
-
-# ignore virtual environments
-pyvenv*/
-venv*/

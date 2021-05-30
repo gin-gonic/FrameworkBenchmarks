@@ -2,7 +2,7 @@
 
 The information below contains information specific to C#. 
 For further guidance, review the 
-[documentation](http://frameworkbenchmarks.readthedocs.org/en/latest/).
+[documentation](https://github.com/TechEmpower/FrameworkBenchmarks/wiki).
 
 ## Infrastructure Software Versions
 
@@ -59,11 +59,13 @@ in your pull request.
 _There aren't any C# experts listed, yet. If you're an expert, add yourself!_
 
 ### C# Community
-
-_We don't have any community links added. Add some to help further guide 
-future contirbutors._
+Discord: http://aka.ms/csharp-discord
 
 ### Resources
 
 _If you stumble upon some helpful links or discussions, add them 
 for easy reference for future contributors._
+
+## Note about this ServiceStack test
+
+Only the default ngnix test for linux remains in the benchmark_config as it is the only one that has consistently appeared in final round results. The xsp tests and nginx database tests are not currently working, though the supporting files remain. Pull requests to fix these implementations are welcome!

@@ -1,0 +1,50 @@
+{
+  "name": "fwb",
+  "description": "A simple vibe.d server application.",
+  "copyright": "Copyright © 2015, jin",
+  "authors": [
+    "jin",
+    "Sönke Ludwig"
+  ],
+  "dependencies": {
+    "vibe-d": "0.9.3",
+    "mir-random": "2.2.15",
+    "vibe-d:tls": "0.9.3"
+  },
+  "targetType": "executable",
+  "sourcePaths": [],
+  "subConfigurations": {
+    "vibe-d": "vibe-core",
+    "vibe-d:tls": "notls"
+  },
+  "versions": [
+    "VibeManualMemoryManagement"
+  ],
+  "configurations": [
+    {
+      "name": "mongodb",
+      "mainSourceFile": "source/mongodb.d"
+    },
+    {
+      "name": "postgresql",
+      "mainSourceFile": "source/postgresql.d",
+      "dependencies": {
+        "vibe-d-postgresql": "3.1.0-rc.1",
+        "dpq2": "1.0.17"
+      },
+      "subConfigurations": {
+        "dpq2": "dynamic"
+      }
+    }
+  ],
+  "buildTypes": {
+      "debug": {
+          "buildOptions": ["debugMode", "optimize"]
+      },
+      "release": {
+          "buildOptions": ["releaseMode", "optimize", "inline"],
+          "dflags": ["-boundscheck=off", "-mcpu=native"],
+          "dflags-ldc": ["-flto=thin"]
+      }
+  }
+}

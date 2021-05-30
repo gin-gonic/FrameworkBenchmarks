@@ -2,27 +2,27 @@
   "framework": "jawn",
   "tests": [{
     "default": {
-      "setup_file": "setup",
       "json_url": "/json",
       "db_url": "/db",
       "query_url": "/queries?queries=",
       "fortune_url": "/fortunes",
       "update_url": "/updates?queries=",
       "plaintext_url": "/plaintext",
-      "port": 8081,
+      "port": 8080,
       "approach": "Realistic",
       "classification": "Fullstack",
-      "database": "MySQL",
-      "framework": "java-web-planet",
+      "database": "Postgres",
+      "framework": "jawn",
       "language": "Java",
+      "flavor": "None",
       "orm": "Raw",
-      "platform": "Servlet",
-      "webserver": "Jetty",
+      "platform": "Undertow",
+      "webserver": "None",
       "os": "Linux",
       "database_os": "Linux",
       "display_name": "jawn",
       "notes": "",
-      "versus": "servlet"
+      "versus": "undertow"
     }
   }]
 }

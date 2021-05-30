@@ -1,8 +1,8 @@
 TARGET = helper
 TEMPLATE = lib
-CONFIG += shared x86_64
+CONFIG += shared x86_64 c++14
 QT  -= gui
-QT  += 
+QT  += qml
 DEFINES += TF_DLL
 DESTDIR = ../lib
 DEPENDPATH +=

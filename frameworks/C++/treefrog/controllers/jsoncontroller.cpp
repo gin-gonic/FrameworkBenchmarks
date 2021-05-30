@@ -1,8 +1,5 @@
 #include "jsoncontroller.h"
 
-JsonController::JsonController(const JsonController &)
-    : ApplicationController()
-{ }
 
 void JsonController::index()
 {
@@ -12,11 +9,9 @@ void JsonController::index()
 void JsonController::json()
 {
     QVariantMap obj;
-    obj["message"] = "Hello, World!";
-
-    setContentType("application/json; charset=UTF-8");
-    renderText(jsonEncode(obj), false);
+    obj[QStringLiteral("message")] = "Hello, World!";
+    renderJson(obj);
 }
 
 // Don't remove below this line
-T_REGISTER_CONTROLLER(jsoncontroller)
+T_DEFINE_CONTROLLER(JsonController)

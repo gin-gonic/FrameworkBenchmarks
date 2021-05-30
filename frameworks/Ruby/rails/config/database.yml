@@ -1,18 +1,23 @@
+---
+default: &default
+  database: hello_world
+  username: benchmarkdbuser
+  password: benchmarkdbpass
+  host: tfb-database
+  timeout: 5000
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
 development:
-  adapter: <%= RUBY_PLATFORM == 'java' ? 'jdbcmysql' : 'mysql2' %>
-  database: hello_world
-  username: benchmarkdbuser
-  password: benchmarkdbpass
-  host: <%= ENV['DB_HOST'] %>
-  pool: 5
-  timeout: 5000
+  <<: *default
 
-production:
-  adapter: <%= RUBY_PLATFORM == 'java' ? 'jdbcmysql' : 'mysql2' %>
-  database: hello_world
-  username: benchmarkdbuser
-  password: benchmarkdbpass
-  host: <%= ENV['DB_HOST'] %>
-  pool: 256
-  timeout: 5000
+test:
+  <<: *default
+
+production_mysql:
+  <<: *default
+  adapter: mysql2
+
+production_postgresql:
+  <<: *default
+  adapter: postgresql
+  encoding: unicode

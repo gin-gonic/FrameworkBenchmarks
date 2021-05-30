@@ -2,7 +2,6 @@
   "framework": "pyramid",
   "tests": [{
     "default": {
-      "setup_file": "setup_py3",
       "json_url": "/json",
       "db_url": "/db",
       "query_url": "/queries?queries=",
@@ -15,17 +14,17 @@
       "database": "Postgres",
       "framework": "pyramid",
       "language": "Python",
+      "flavor": "Python3",
       "orm": "Full",
-      "platform": "Meinheld",
-      "webserver": "None",
+      "platform": "None",
+      "webserver": "Meinheld",
       "os": "Linux",
       "database_os": "Linux",
-      "display_name": "Pyramid-Py3",
+      "display_name": "Pyramid",
       "notes": "",
       "versus": "wsgi"
     },
     "py2": {
-      "setup_file": "setup_py2",
       "json_url": "/json",
       "db_url": "/db",
       "query_url": "/queries?queries=",
@@ -38,12 +37,13 @@
       "database": "Postgres",
       "framework": "pyramid",
       "language": "Python",
+      "flavor": "Python2",
       "orm": "Full",
-      "platform": "Meinheld",
-      "webserver": "None",
+      "platform": "None",
+      "webserver": "Meinheld",
       "os": "Linux",
       "database_os": "Linux",
-      "display_name": "Pyramid-Py2",
+      "display_name": "Pyramid",
       "notes": "",
       "versus": "wsgi"
     }

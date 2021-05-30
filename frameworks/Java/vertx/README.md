@@ -1,36 +1,35 @@
-# Vertx 2.x Benchmarking Test
+# Vertx Benchmarking Test
 
-This is the vertx 2.x portion of a [benchmarking test suite](../) comparing a variety of web development platforms.
+This is the Vert.x portion of a [benchmarking test suite](../) comparing a variety of web development platforms.
 
 ### Plaintext Test
 
-* [Plaintext test source](WebServer.java)
+* [Plaintext test source](src/main/java/vertx/App.java)
 
 ### JSON Serialization Test
 
-* [JSON test source](WebServer.java)
+* [JSON test source](src/main/java/vertx/App.java)
 
-### Database Single query Test
+### Database Query Test
 
-* [Database Single query test source](WebServer.java)
+* [Database Query test source](src/main/java/vertx/App.java)
 
-### Database Multiple queries Test
+### Database Queries Test
 
-* [Database Multiple queries test source](WebServer.java)
+* [Database Queries test source](src/main/java/vertx/App.java)
 
-### Database Data updates Test
+### Database Update Test
 
-* [Database Data updates test source](WebServer.java)
+* [Database Update test source](src/main/java/vertx/App.java)
 
-### Fortunes Test
+### Template rendering Test
 
-* [Fortunes test source](WebServer.java)
+* [Template rendering test source](src/main/java/vertx/App.java)
 
 ## Versions
 
-* [Java OpenJDK 1.7.0_79](http://openjdk.java.net/)
-* [vertx 2.1.5](http://vertx.io/)
-
+* [Java OpenJDK 1.8](http://openjdk.java.net/)
+* [vertx 3.6.0.CR1](http://vertx.io/)
 
 ## Test URLs
 
@@ -42,22 +41,18 @@ This is the vertx 2.x portion of a [benchmarking test suite](../) comparing a va
 
     http://localhost:8080/json
 
-### Database Mapping Test
-
-    http://localhost:8080/db?queries=5
-
-### Database Single query Test
+### Database Query Test
 
     http://localhost:8080/db
 
-### Database Multiple queries Test
+### Database Queries Test
 
     http://localhost:8080/queries?queries=5
 
-### Database Data updates Test
+### Database Update Test
 
-    http://localhost:8080/updates?queries=3
+    http://localhost:8080/updates?queries=5
 
-### Fortunes Test
+### Template rendering Test
 
     http://localhost:8080/fortunes

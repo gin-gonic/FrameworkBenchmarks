@@ -46,16 +46,16 @@
 */
 
 $active_group = 'default';
-$active_record = TRUE;
+$query_builder = TRUE;
 
-$db['default']['hostname'] = 'localhost';
+$db['default']['hostname'] = 'tfb-database';
 $db['default']['username'] = 'benchmarkdbuser';
 $db['default']['password'] = 'benchmarkdbpass';
 $db['default']['database'] = 'hello_world';
-$db['default']['dbdriver'] = 'mysql';
+$db['default']['dbdriver'] = 'mysqli';
 $db['default']['dbprefix'] = '';
 $db['default']['pconnect'] = TRUE;
-$db['default']['db_debug'] = TRUE;
+$db['default']['db_debug'] = FALSE;
 $db['default']['cache_on'] = FALSE;
 $db['default']['cachedir'] = '';
 $db['default']['char_set'] = 'utf8';

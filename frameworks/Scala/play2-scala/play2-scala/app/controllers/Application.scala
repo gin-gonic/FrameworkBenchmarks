@@ -1,22 +1,24 @@
 package controllers
 
+import javax.inject.{ Inject, Singleton }
+
 import play.api.mvc._
 import play.api.libs.json.Json
+import play.mvc.Http
 
-object Application extends Controller {
+@Singleton
+class Application @Inject() (cc: ControllerComponents)
+extends AbstractController(cc) {
 
-  def json() = Action {
-    Ok(Json.obj("message" -> "Hello, World!"))
+  implicit final val helloWorldWrites = Json.writes[HelloWorld]
+
+  def getJsonMessage = Action {
+    Ok( Json.toJson(HelloWorld()) )
   }
 
-  def plaintext() = Action {
-    import java.util.Date
-    import java.text.SimpleDateFormat
-
-    val sdf = new SimpleDateFormat("EEE, MMM d yyyy HH:MM:ss z")
-    Ok("Hello, World!")
-      .withHeaders(
-        DATE -> sdf.format(new Date()),
-        SERVER -> "Play Framework 2.3.3")
+  val plaintext = Action {
+    Ok("Hello, World!").as(play.api.http.MimeTypes.TEXT)
   }
 }
+
+case class HelloWorld(message: String = "Hello, World!")

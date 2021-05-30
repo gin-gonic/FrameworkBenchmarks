@@ -1,38 +1,49 @@
 package example
 
-import java.util.Date
-import java.text.SimpleDateFormat
+import akka.actor.ActorSystem
+import colossus.core._
+import colossus.protocols.http._
+import colossus.service._
+import colossus.service.Callback.Implicits._
+import colossus.service.GenRequestHandler.PartialHandler
+import colossus.util.DataSize
+import com.github.plokhotnyuk.jsoniter_scala.core._
+import com.github.plokhotnyuk.jsoniter_scala.macros._
 
-import colossus._
-import service._
-import protocols.http._
-import UrlParsing._
-import HttpMethod._
+import scala.concurrent.duration.Duration
 
-import net.liftweb.json._
-import JsonDSL._
+case class Message(message: String)
 
 object Main extends App {
 
-  implicit val io_system = IOSystem()
+  val serverConfig = ServerSettings(
+    port = 9007,
+    maxConnections = 16384,
+    tcpBacklogSize = Some(1024))
 
-  Service.become[Http]("sample", 9007) {
-    case request @ Get on Root / "json" => {
-      val json = ("message" -> "Hello, World!")
-      val sdf = new SimpleDateFormat("EEE, MMM d yyyy HH:MM:ss z")
-      val v = request.ok(compact(render(json)))
-        .withHeader("Content-Type", "application/json")
-        .withHeader("Server", "Colossus")
-        .withHeader("Date", sdf.format(new Date()))
-      Callback.successful(v)
-    }
-    case request @ Get on Root / "plaintext" => {
-      val sdf = new SimpleDateFormat("EEE, MMM d yyyy HH:MM:ss z")
-      val res = request.ok("Hello, World!")
-        .withHeader("Content-Type", "text/plain")
-        .withHeader("Server", "Colossus")
-        .withHeader("Date", sdf.format(new Date()))
-      Callback.successful(res)
-    }
+  val serviceConfig = ServiceConfig(
+    logErrors = false,
+    requestMetrics = false,
+    requestTimeout = Duration("1s"),
+    requestBufferSize = 65536,
+    maxRequestSize = DataSize(1024 * 1024))
+
+  implicit val actorSystem: ActorSystem = ActorSystem()
+  implicit val ioSystem: IOSystem = IOSystem()
+
+  implicit val codec: JsonValueCodec[Message] = JsonCodecMaker.make[Message](CodecMakerConfig())
+
+  implicit val messageEncoder: HttpBodyEncoder[Message] = new HttpBodyEncoder[Message] {
+    override def encode(data: Message): HttpBody = new HttpBody(writeToArray(data))
+    override def contentType: String = "application/json"
   }
+
+  HttpServer.start("Colossus", serverConfig)(initContext => new Initializer(initContext) {
+    override def onConnect: RequestHandlerFactory = serverContext => new RequestHandler(serverContext, serviceConfig) {
+      override def handle: PartialHandler[Http] = {
+        case req if req.head.url == "/plaintext" => req.ok("Hello, World!")
+        case req if req.head.url == "/json" => req.ok(Message("Hello, World!"))
+      }
+    }
+  })
 }

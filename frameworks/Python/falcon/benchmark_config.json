@@ -2,7 +2,6 @@
   "framework": "falcon",
   "tests": [{
     "default": {
-      "setup_file": "setup",
       "json_url": "/json",
       "plaintext_url": "/plaintext",
       "port": 8080,
@@ -11,17 +10,17 @@
       "database": "None",
       "framework": "Falcon",
       "language": "Python",
+      "flavor": "Python2",
       "orm": "Raw",
-      "platform": "Gunicorn/Meinheld",
-      "webserver": "None",
+      "platform": "None",
+      "webserver": "Meinheld",
       "os": "Linux",
       "database_os": "Linux",
-      "display_name": "Falcon-Py2",
+      "display_name": "Falcon",
       "notes": "CPython 2",
       "versus": "wsgi"
     },
     "py3": {
-      "setup_file": "setup_py3",
       "json_url": "/json",
       "plaintext_url": "/plaintext",
       "port": 8080,
@@ -30,17 +29,17 @@
       "database": "None",
       "framework": "Falcon",
       "language": "Python",
+      "flavor": "Python3",
       "orm": "Raw",
-      "platform": "Gunicorn/Meinheld",
-      "webserver": "None",
+      "platform": "None",
+      "webserver": "Meinheld",
       "os": "Linux",
       "database_os": "Linux",
-      "display_name": "Falcon-Py3",
+      "display_name": "Falcon",
       "notes": "CPython 3",
       "versus": "wsgi"
     },
-    "pypy": {
-      "setup_file": "setup_pypy",
+    "pypy2": {
       "json_url": "/json",
       "plaintext_url": "/plaintext",
       "port": 8080,
@@ -49,13 +48,14 @@
       "database": "None",
       "framework": "Falcon",
       "language": "Python",
+      "flavor": "PyPy2",
       "orm": "Raw",
-      "platform": "Gunicorn/Tornado",
-      "webserver": "None",
+      "platform": "None",
+      "webserver": "Tornado",
       "os": "Linux",
       "database_os": "Linux",
-      "display_name": "Falcon-PyPy",
-      "notes": "PyPy",
+      "display_name": "Falcon",
+      "notes": "PyPy2",
       "versus": "wsgi"
     }
   }]

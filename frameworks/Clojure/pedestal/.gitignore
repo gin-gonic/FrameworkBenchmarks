@@ -1,5 +1,0 @@
-target/
-tmp/
-logs/
-.lein-repl-history
-.nrepl-port

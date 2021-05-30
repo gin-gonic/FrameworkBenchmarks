@@ -2,15 +2,15 @@
 installs
 *.log
 node_modules/
+.travis.bak
 
 # Added for pedestal framework test
-lib/
 .lein-deps-sum
 
 # eclipse
-.classpath
-.project
-.settings
+**/.classpath
+**/.project
+**/.settings
 
 # maven
 target/
@@ -53,33 +53,11 @@ benchmark.cfg
 # netbeans
 /nbproject
 
+# Visual Studio Code
+.vscode
+
 # vim
 .*.sw[a-p]
 
 # merge tooling
 *.orig
-
-# maven
-*.versionsBackup
-*.releaseBackup
-
-# python-isms
-*.pyc
-
-# java / ruby stuff
-*.lock
-*.war
-
-# go
-go/pkg/*
-beego/pkg/*
-
-# urweb
-frameworks/Ur/urweb/*.exe
-
-# nim
-nimcache
-
-# crystal
-.crystal
-*.out
